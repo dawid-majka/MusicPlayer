@@ -20,10 +20,12 @@ const TabsNavigation = () => {
 					borderTopRightRadius: 20,
 					borderTopWidth: 0,
 					paddingTop: 8,
+					backgroundColor: 'rgba(20,20,20,0.85)', // Add a dark fallback background
 				},
 				tabBarBackground: () => (
 					<BlurView
 						intensity={95}
+						tint="dark" // Use dark tint for a darker effect
 						style={{
 							...StyleSheet.absoluteFillObject,
 							overflow: 'hidden',
@@ -34,7 +36,6 @@ const TabsNavigation = () => {
 				),
 			}}
 		>
-			{/* // color is passed from Tabs screen provider <Tabs> */}
 			<Tabs.Screen
 				name="favorites"
 				options={{
