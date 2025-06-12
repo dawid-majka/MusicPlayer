@@ -7,8 +7,10 @@ import { defaultStyles } from '@/styles'
 import { PlayPauseButton, SkipToNextButton } from './PlayerControls'
 import { useLastActiveTrack } from '@/hooks/useLastActiveTrack'
 import { MovingText } from './MovingText'
+import { useRouter } from 'expo-router'
 
 export const FloatingPlayer = ({ style }: ViewProps) => {
+	const router = useRouter()
 	const activeTrack = useActiveTrack()
 
 	const lastActiveTrack = useLastActiveTrack()
@@ -18,7 +20,11 @@ export const FloatingPlayer = ({ style }: ViewProps) => {
 	if (!displayedTrack) return null
 
 	return (
-		<TouchableOpacity activeOpacity={0.9} style={[styles.container, style]}>
+		<TouchableOpacity
+			activeOpacity={0.9}
+			style={[styles.container, style]}
+			onPress={() => router.navigate('/player')}
+		>
 			<>
 				<FastImage
 					source={{
