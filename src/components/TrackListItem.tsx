@@ -4,8 +4,31 @@ import { defaultStyles } from '@/styles'
 import { TouchableHighlight, StyleSheet, View, Text } from 'react-native'
 import FastImage from 'react-native-fast-image'
 // https://github.com/doublesymmetry/react-native-track-player/issues/2455#issuecomment-2867771771
-import { Track, useActiveTrack } from 'react-native-track-player'
-import { Entypo } from '@expo/vector-icons'
+/*
+node_module/react-native-track-player/android/src/main/java/comdoublesymetry/trackplayer/service/MusicService.kt
+at line number 764
+
+@mainthread
+override fun onBind(intent: Intent?): IBinder {
+return binder
+}
+
+@mainthread
+override fun onBind(intent: Intent): IBinder {
+return binder
+}
+
+just remove the question maker ? after intent
+
+extra : in android/gradle.properties
+newArchEnabled=false
+make this false
+
+and good to go
+*/
+import { Track, useActiveTrack, useIsPlaying } from 'react-native-track-player'
+import { Entypo, Ionicons } from '@expo/vector-icons'
+import LoaderKit from 'react-native-loader-kit'
 
 // export type Track = {
 // 	url: string
@@ -23,6 +46,7 @@ type TrackListItemProps = {
 
 export const TrackListItem = ({ track, onTrackSelect }: TrackListItemProps) => {
 	const isActiveTrack = useActiveTrack()?.url === track.url
+	const { playing } = useIsPlaying()
 
 	// TouchableHighlight is older. Should use Pressable
 	return (
@@ -36,6 +60,22 @@ export const TrackListItem = ({ track, onTrackSelect }: TrackListItemProps) => {
 						}}
 						style={{ ...styles.trackArtworkImage, opacity: isActiveTrack ? 0.6 : 1 }}
 					/>
+
+					{isActiveTrack &&
+						(playing ? (
+							<LoaderKit
+								style={styles.trackPlayingIconIdicator}
+								name="LineScaleParty"
+								color={colors.icon}
+							/>
+						) : (
+							<Ionicons
+								style={styles.trackPausedIndicator}
+								name="play"
+								size={24}
+								color={colors.icon}
+							/>
+						))}
 				</View>
 				<View
 					style={{
@@ -93,5 +133,17 @@ const styles = StyleSheet.create({
 		color: colors.textMuted,
 		fontSize: 14,
 		marginTop: 4,
+	},
+	trackPlayingIconIdicator: {
+		position: 'absolute',
+		top: 14,
+		left: 14,
+		width: 24,
+		height: 24,
+	},
+	trackPausedIndicator: {
+		position: 'absolute',
+		top: 14,
+		left: 14,
 	},
 })

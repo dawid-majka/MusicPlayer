@@ -6,6 +6,7 @@ import { StyleSheet } from 'react-native'
 import { defaultStyles } from '@/styles'
 import { PlayPauseButton, SkipToNextButton } from './PlayerControls'
 import { useLastActiveTrack } from '@/hooks/useLastActiveTrack'
+import { MovingText } from './MovingText'
 
 export const FloatingPlayer = ({ style }: ViewProps) => {
 	const activeTrack = useActiveTrack()
@@ -27,7 +28,12 @@ export const FloatingPlayer = ({ style }: ViewProps) => {
 				/>
 
 				<View style={styles.trackTitleContainer}>
-					<Text style={styles.trackTitle}>{displayedTrack.title}</Text>
+					<MovingText
+						style={styles.trackTitle}
+						text={displayedTrack.title ?? ''}
+						animationTreshold={25}
+					></MovingText>
+					{/* <Text style={styles.trackTitle}>{displayedTrack.title}</Text> */}
 				</View>
 
 				<View style={styles.trackControlsContainer}>

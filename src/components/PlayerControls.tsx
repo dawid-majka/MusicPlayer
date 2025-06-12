@@ -21,14 +21,16 @@ export const PlayPauseButton = ({ style, iconSize }: PlayerButtonProps) => {
 				activeOpacity={0.85}
 				onPress={playing ? TrackPlayer.pause : TrackPlayer.play}
 			>
-				<FontAwesome name={playing ? 'pause' : 'play'} size={iconSize} color={colors.text} />
+				<FontAwesome6 name={playing ? 'pause' : 'play'} size={iconSize} color={colors.text} />
 			</TouchableOpacity>
 		</View>
 	)
 }
 
+// TODO: not working
 export const SkipToNextButton = ({ iconSize = 30 }: PlayerButtonProps) => {
-	const { playing } = useIsPlaying()
+	// let idx = await TrackPlayer.getActiveTrackIndex()
+	// console.log(idx)
 
 	return (
 		<TouchableOpacity activeOpacity={0.7} onPress={() => TrackPlayer.skipToNext()}>
@@ -38,11 +40,9 @@ export const SkipToNextButton = ({ iconSize = 30 }: PlayerButtonProps) => {
 }
 
 export const SkipToPreviousButton = ({ iconSize = 30 }: PlayerButtonProps) => {
-	const { playing } = useIsPlaying()
-
 	return (
 		<TouchableOpacity activeOpacity={0.7} onPress={() => TrackPlayer.skipToPrevious()}>
-			<FontAwesome6 name="backwart" size={iconSize} color={colors.text} />
+			<FontAwesome6 name="backward" size={iconSize} color={colors.text} />
 		</TouchableOpacity>
 	)
 }
