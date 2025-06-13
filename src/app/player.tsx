@@ -2,11 +2,11 @@ import { MovingText } from '@/components/MovingText'
 import { unknownTrackImageUri } from '@/constants/images'
 import { colors, fontSize, screenPadding } from '@/constants/tokens'
 import { defaultStyles } from '@/styles'
-import { View, StyleSheet, Text, ActivityIndicator } from 'react-native'
+import { View, StyleSheet, Text, ActivityIndicator, Pressable } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useActiveTrack } from 'react-native-track-player'
-import { FontAwesome } from '@expo/vector-icons'
+import { Entypo, FontAwesome } from '@expo/vector-icons'
 import { utilsStyles } from '@/styles'
 import React from 'react'
 import { PlayerControls } from '@/components/PlayerControls'
@@ -15,6 +15,7 @@ import { PlayerRepeatToggle } from '@/components/PlayerRepeatToggle'
 import { PlayerVolumeBar } from '@/components/PlayerVolumeBar'
 import { usePlayerBackground } from '@/hooks/usePlayerBackground'
 import { LinearGradient } from 'expo-linear-gradient'
+import { router } from 'expo-router'
 
 const PlayerScreen = () => {
 	const activeTrack = useActiveTrack()
@@ -43,6 +44,7 @@ const PlayerScreen = () => {
 		>
 			<View style={styles.overlayContainer}>
 				<DismissPlayerSymbol />
+				<BackButton />
 				<View style={{ flex: 1, marginTop: top + 70, marginBottom: bottom }}>
 					<View style={styles.artworkImageContainer}>
 						<FastImage
@@ -142,7 +144,22 @@ const DismissPlayerSymbol = () => {
 	)
 }
 
+const BackButton = () => {
+	return (
+		<Pressable onPress={() => router.back()} style={styles.backButton}>
+			<Entypo name="chevron-down" size={24} color="white" />
+		</Pressable>
+	)
+}
+
 const styles = StyleSheet.create({
+	backButton: {
+		position: 'absolute',
+		top: 64, // 4rem ≈ 64dp
+		left: 16, // 1rem ≈ 16dp
+		borderRadius: 9999,
+		padding: 8, // 0.5rem ≈ 8dp
+	},
 	overlayContainer: {
 		...defaultStyles.container,
 		paddingHorizontal: screenPadding.horizontal,

@@ -6,6 +6,7 @@ import { View, ScrollView } from 'react-native'
 import { useMemo } from 'react'
 import { useFavorites, useTracks } from '@/store/library'
 import { trackTitleFilter } from '@/helpers/filter'
+import { generateTracksListId } from '@/helpers/miscellaneous'
 
 const FavoritesScreen = () => {
 	const search = useNavigationSearch({
@@ -39,7 +40,11 @@ const FavoritesScreen = () => {
 				// persistentScrollbar={true}
 				scrollIndicatorInsets={{ right: 1 }} // small nudge sometimes helps
 			>
-				<TrackList scrollEnabled={false} tracks={favs} />
+				<TrackList
+					scrollEnabled={false}
+					tracks={favs}
+					id={generateTracksListId('favorites', search)}
+				/>
 			</ScrollView>
 		</View>
 	)
