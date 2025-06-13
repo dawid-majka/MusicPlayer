@@ -3,20 +3,30 @@ import { colors, screenPadding } from '@/constants/tokens'
 import { useNavigationSearch } from '@/hooks/useNavigationSearch'
 import { defaultStyles } from '@/styles'
 import { View, ScrollView } from 'react-native'
-import library from '@/assets/data/library.json'
-import { trackTitleFilter } from '@/helpers/filter'
 import { useMemo } from 'react'
+import { useFavorites, useTracks } from '@/store/library'
+import { trackTitleFilter } from '@/helpers/filter'
 
 const FavoritesScreen = () => {
 	const search = useNavigationSearch({
 		searchBarOptions: {
 			placeholder: 'Find in songs',
+			headerIconColor: colors.icon,
+			tintColor: colors.text,
+			textColor: colors.text,
+			hintTextColor: colors.minimumTrackTintColor,
 		},
 	})
 
+	const tracks = useFavorites().favorites
+
 	const favs = useMemo(() => {
-		return library.filter((track) => track.rating === 1)
-	}, [])
+		if (!search) {
+			return tracks
+		}
+
+		return tracks.filter(trackTitleFilter(search))
+	}, [search, tracks])
 
 	return (
 		<View style={defaultStyles.container}>

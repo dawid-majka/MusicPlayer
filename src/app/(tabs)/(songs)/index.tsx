@@ -3,9 +3,9 @@ import { colors, screenPadding } from '@/constants/tokens'
 import { useNavigationSearch } from '@/hooks/useNavigationSearch'
 import { defaultStyles } from '@/styles'
 import { View, ScrollView } from 'react-native'
-import library from '@/assets/data/library.json'
 import { trackTitleFilter } from '@/helpers/filter'
 import { useMemo } from 'react'
+import { useTracks } from '@/store/library'
 
 const SongsScreen = () => {
 	const search = useNavigationSearch({
@@ -18,13 +18,15 @@ const SongsScreen = () => {
 		},
 	})
 
+	const tracks = useTracks()
+
 	const filteredSongs = useMemo(() => {
 		if (!search) {
-			return library
+			return tracks
 		}
 
-		return library.filter(trackTitleFilter(search))
-	}, [search])
+		return tracks.filter(trackTitleFilter(search))
+	}, [search, tracks])
 
 	return (
 		<View style={defaultStyles.container}>

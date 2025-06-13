@@ -31,7 +31,8 @@
     "react-native-screens": "~4.11.1",
     "react-native-track-player": "4.1.1",
     "react-native-web": "^0.20.0",
-    "ts-pattern": "^5.7.1"
+    "ts-pattern": "^5.7.1",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
