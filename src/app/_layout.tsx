@@ -40,6 +40,8 @@ const RootNavigation = () => {
 			<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 			<Stack.Screen
 				name="player"
+				// Gestures do not work as it only for iOS
+				// https://reactnavigation.org/docs/native-stack-navigator/
 				options={{
 					presentation: 'card',
 					gestureEnabled: true,
