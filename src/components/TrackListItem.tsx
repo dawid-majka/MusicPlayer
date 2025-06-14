@@ -29,6 +29,7 @@ and good to go
 import { Track, useActiveTrack, useIsPlaying } from 'react-native-track-player'
 import { Entypo, Ionicons } from '@expo/vector-icons'
 import LoaderKit from 'react-native-loader-kit'
+import { TrackShortcutsMenu } from './TrackShortcutsMenu'
 
 // export type Track = {
 // 	url: string
@@ -103,7 +104,12 @@ export const TrackListItem = ({ track, onTrackSelect }: TrackListItemProps) => {
 						)}
 					</View>
 
-					<Entypo name="dots-three-horizontal" size={18} color={colors.icon} />
+					{/* Stop propagation of press event on tree dots (music should not start to play if 3 dots are pressed) */}
+					<View onStartShouldSetResponder={() => true} onTouchEnd={(e) => e.stopPropagation()}>
+						<TrackShortcutsMenu track={track}>
+							<Entypo name="dots-three-horizontal" size={18} color={colors.icon} />
+						</TrackShortcutsMenu>
+					</View>
 				</View>
 			</View>
 		</TouchableHighlight>

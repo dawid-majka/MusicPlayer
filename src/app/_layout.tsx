@@ -7,6 +7,7 @@ import { SplashScreen } from 'expo-router'
 import { useCallback } from 'react'
 import { useLogTrackPlayerState } from '@/hooks/useLogTrackPayerState'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { colors } from '@/constants/tokens'
 
 // Shows splash screen until all interanls are loaded.
 // When player loaded internals it calls onLoad that hides splash screen
@@ -48,6 +49,19 @@ const RootNavigation = () => {
 					gestureDirection: 'vertical',
 					animationDuration: 400,
 					headerShown: false,
+				}}
+			/>
+			<Stack.Screen
+				name="(modals)/addToPlaylistModal"
+				options={{
+					presentation: 'modal',
+					headerStyle: {
+						backgroundColor: colors.background,
+					},
+					headerTitle: 'Add to playlist',
+					headerTitleStyle: {
+						color: colors.text,
+					},
 				}}
 			/>
 		</Stack>

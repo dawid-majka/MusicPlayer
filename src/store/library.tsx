@@ -4,6 +4,7 @@ import library from '@/assets/data/library.json'
 import { create } from 'zustand'
 import { useMemo } from 'react'
 import { unknownArtistImageUri } from '@/constants/images'
+import { P } from 'ts-pattern'
 
 interface LibraryState {
 	tracks: TrackWithPlaylist[]
@@ -13,8 +14,30 @@ interface LibraryState {
 
 export const useLibraryStore = create<LibraryState>()((set) => ({
 	tracks: library,
-	toggleTrackFavorite: () => {},
-	addToPlaylist: () => {},
+	toggleTrackFavorite: (track) =>
+		set((state) => ({
+			tracks: state.tracks.map((currentTrack) => {
+				if (currentTrack.url === track.url) {
+					return {
+						...currentTrack,
+						rating: currentTrack.rating === 1 ? 0 : 1,
+					}
+				}
+				return currentTrack
+			}),
+		})),
+	addToPlaylist: (track, playlistName) =>
+		set((state) => ({
+			tracks: state.tracks.map((currentTrack) => {
+				if (currentTrack.url === track.url) {
+					return {
+						...currentTrack,
+						playlist: [...(currentTrack.playlist ?? []), playlistName],
+					}
+				}
+				return currentTrack
+			}),
+		})),
 }))
 
 export const useTracks = () => useLibraryStore((state) => state.tracks)

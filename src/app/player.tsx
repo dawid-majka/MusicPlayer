@@ -16,6 +16,7 @@ import { PlayerVolumeBar } from '@/components/PlayerVolumeBar'
 import { usePlayerBackground } from '@/hooks/usePlayerBackground'
 import { LinearGradient } from 'expo-linear-gradient'
 import { router } from 'expo-router'
+import { useTrackPlayerFavorites } from '@/hooks/useTrackPlayerFavorites'
 
 const PlayerScreen = () => {
 	const activeTrack = useActiveTrack()
@@ -23,7 +24,7 @@ const PlayerScreen = () => {
 
 	const { top, bottom } = useSafeAreaInsets()
 
-	const isFavorite = false
+	const { isFavorite, toggleFavorite } = useTrackPlayerFavorites()
 
 	if (!activeTrack) {
 		return (
@@ -82,7 +83,7 @@ const PlayerScreen = () => {
 										size={20}
 										color={isFavorite ? colors.primary : colors.icon}
 										style={{ marginHorizontal: 14 }}
-										onPress={() => {}}
+										onPress={toggleFavorite}
 									/>
 								</View>
 
