@@ -29,7 +29,7 @@ const EmptyList = () => (
 	</View>
 )
 
-export const TrackList = ({
+export const TracksList = ({
 	id,
 	tracks,
 	hideQueueControls = false,

@@ -1,4 +1,4 @@
-import { TrackList } from '@/components/TracksList'
+import { TracksList } from '@/components/TracksList'
 import { colors, screenPadding } from '@/constants/tokens'
 import { useNavigationSearch } from '@/hooks/useNavigationSearch'
 import { defaultStyles } from '@/styles'
@@ -40,7 +40,7 @@ const FavoritesScreen = () => {
 				// persistentScrollbar={true}
 				scrollIndicatorInsets={{ right: 1 }} // small nudge sometimes helps
 			>
-				<TrackList
+				<TracksList
 					scrollEnabled={false}
 					tracks={favs}
 					hideQueueControls

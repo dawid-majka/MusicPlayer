@@ -4,7 +4,7 @@ import { generateTracksListId } from '@/helpers/miscellaneous'
 import { Artist } from '@/helpers/types'
 import { useNavigationSearch } from '@/hooks/useNavigationSearch'
 import { useMemo } from 'react'
-import { TrackList } from './TracksList'
+import { TracksList } from './TracksList'
 import { defaultStyles } from '@/styles'
 import { StyleSheet, View, Text } from 'react-native'
 import FastImage from 'react-native-fast-image'
@@ -27,7 +27,7 @@ export const ArtistTracksList = ({ artist }: { artist: Artist }) => {
 	}, [artist.tracks, search])
 
 	return (
-		<TrackList
+		<TracksList
 			id={generateTracksListId(artist.name, search)}
 			scrollEnabled={false}
 			tracks={filteredArtistTracks}
