@@ -8,10 +8,14 @@ import { useCallback } from 'react'
 import { useLogTrackPlayerState } from '@/hooks/useLogTrackPayerState'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { colors } from '@/constants/tokens'
+import TrackPlayer from 'react-native-track-player'
+import { playbackService } from '@/constants/playbackService'
 
 // Shows splash screen until all interanls are loaded.
 // When player loaded internals it calls onLoad that hides splash screen
 SplashScreen.preventAutoHideAsync()
+
+TrackPlayer.registerPlaybackService(() => playbackService)
 
 const App = () => {
 	useLogTrackPlayerState()
